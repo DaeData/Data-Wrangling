@@ -1,9 +1,7 @@
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Apr  5 00:41:57 2018
 
-@author: Kris
-"""
+
 import csv
 import codecs
 import pprint
@@ -11,10 +9,11 @@ import re
 import xml.etree.cElementTree as ET
 
 import cerberus
-
 import schema
 
-OSM_PATH = "dallas.osm"
+from update_street_name import update_name
+
+OSM_PATH = "l_sample.osm"
 
 NODES_PATH = "nodes.csv"
 NODE_TAGS_PATH = "nodes_tags.csv"
@@ -24,7 +23,7 @@ WAY_TAGS_PATH = "ways_tags.csv"
 
 LOWER_COLON = re.compile(r'^([a-z]|_)+:([a-z]|_)+')
 PROBLEMCHARS = re.compile(r'[=\+/&<>;\'"\?%#$@\,\. \t\r\n]')
-
+street_type_re = re.compile(r'\b\S+\.?$', re.IGNORECASE)
 SCHEMA = schema.schema
 
 # Make sure the fields order in the csvs matches the column order in the sql table schema
@@ -44,7 +43,10 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
     way_nodes = []
     tags = []  # Handle secondary tags the same way for both node and way elements
     nodepos = 0 
+    
     # YOUR CODE HERE
+   
+    
     if element.tag == 'node':
         for field in NODE_FIELDS:
             node_attribs[field] = element.attrib[field]
@@ -55,22 +57,41 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
             
             if PROBLEMCHARS.match(tag.attrib["k"]):
                 continue
-            elif ':' in tag.attrib['k']:
+                       
+            #split at colon into two separate values, like addr:street. Street becomes the key, addr becomes the type.
+            #If there is no colon set type to regular.
+            elif LOWER_COLON.match(tag.attrib['k']):
+                
                 t_dic['type'] = tag.attrib['k'].split(':')[0]
                 t_dic['key'] = tag.attrib["k"].split(':',1)[1]
+                #correct all tags that associated with street.
+                
+                if tag.attrib['k'] == 'addr:street':
+                
+                    t_dic['value'] = update_name(tag.attrib['v'])
+                    print 'addr', t_dic
+                else:
+                    t_dic['value'] = tag.attrib['v']
+                
+                
             else:
                 t_dic['type'] = 'regular'
                 t_dic['key'] = tag.attrib['k']
-                
-          
-            t_dic['value'] = tag.attrib['v']
+                t_dic['value'] = tag.attrib['v']
             tags.append(t_dic)
+
+
+
             
         return {'node': node_attribs, 'node_tags': tags}
         
     elif element.tag == 'way':
         for field in WAY_FIELDS:
             way_attribs[field] = element.attrib[field]
+#        Here we have to process the information slightly differently.
+#        Each id can have multiple entries so we keep them together and write them according to the id and position.
+#        We start at position 0, resetting the position when we encounter a new id.
+       
         for nd in element.iter('nd'):
             n_dic = {}
             n_dic['id'] = element.attrib['id']
@@ -78,20 +99,29 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
             n_dic['position'] = nodepos
             nodepos += 1
             way_nodes.append(n_dic)
+        #repeat the same process for way as we did with node.
         for tag in element.iter('tag'):
             t_dic = {}
             t_dic['id'] = element.attrib['id'] 
             if PROBLEMCHARS.match(tag.attrib["k"]):
                 continue
-            elif ':' in tag.attrib['k']:
+            elif LOWER_COLON.match(tag.attrib['k']):
+               
                 t_dic['type'] = tag.attrib['k'].split(':')[0]
                 t_dic['key'] = tag.attrib["k"].split(':',1)[1]
+                
+                if tag.attrib['k'] == 'addr:street':
+                        t_dic['value'] = update_name(tag.attrib['v'])
+                        print 'addr', t_dic
+                else:
+                    t_dic['value'] = tag.attrib['v']
+                
+                
             else:
                 t_dic['type'] = 'regular'
                 t_dic['key'] = tag.attrib['k']
-            
-            t_dic['value'] = tag.attrib['v']
-            tags.append(t_dic) 
+                t_dic['value'] = tag.attrib['v']
+            tags.append(t_dic)
         return {'way': way_attribs, 'way_nodes': way_nodes, 'way_tags': tags}
 
 
@@ -107,6 +137,8 @@ def get_element(osm_file, tags=('node', 'way', 'relation')):
         if event == 'end' and elem.tag in tags:
             yield elem
             root.clear()
+
+
 
 
 def validate_element(element, validator, schema=SCHEMA):
@@ -138,11 +170,7 @@ class UnicodeDictWriter(csv.DictWriter, object):
 def process_map(file_in, validate):
     """Iteratively process each XML element and write to csv(s)"""
 
-    with codecs.open(NODES_PATH, 'w') as nodes_file, \
-         codecs.open(NODE_TAGS_PATH, 'w') as nodes_tags_file, \
-         codecs.open(WAYS_PATH, 'w') as ways_file, \
-         codecs.open(WAY_NODES_PATH, 'w') as way_nodes_file, \
-         codecs.open(WAY_TAGS_PATH, 'w') as way_tags_file:
+    with codecs.open(NODES_PATH, 'w') as nodes_file, codecs.open(NODE_TAGS_PATH, 'w') as nodes_tags_file, codecs.open(WAYS_PATH, 'w') as ways_file, codecs.open(WAY_NODES_PATH, 'w') as way_nodes_file, codecs.open(WAY_TAGS_PATH, 'w') as way_tags_file:
 
         nodes_writer = UnicodeDictWriter(nodes_file, NODE_FIELDS)
         node_tags_writer = UnicodeDictWriter(nodes_tags_file, NODE_TAGS_FIELDS)
@@ -160,7 +188,9 @@ def process_map(file_in, validate):
 
         for element in get_element(file_in, tags=('node', 'way')):
             el = shape_element(element)
+            
             if el:
+
                 if validate is True:
                     validate_element(el, validator)
 
@@ -176,4 +206,4 @@ def process_map(file_in, validate):
 if __name__ == '__main__':
     # Note: Validation is ~ 10X slower. For the project consider using a small
     # sample of the map when validating.
-    process_map(OSM_PATH, validate=True)
+    process_map(OSM_PATH, validate=False)
