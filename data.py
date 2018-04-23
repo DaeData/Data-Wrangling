@@ -13,7 +13,7 @@ import schema
 
 from update_street_name import update_name
 
-OSM_PATH = "l_sample.osm"
+OSM_PATH = "dallas.osm"
 
 NODES_PATH = "nodes.csv"
 NODE_TAGS_PATH = "nodes_tags.csv"
@@ -65,14 +65,12 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
                 t_dic['type'] = tag.attrib['k'].split(':')[0]
                 t_dic['key'] = tag.attrib["k"].split(':',1)[1]
                 #correct all tags that associated with street.
-                
+             
                 if tag.attrib['k'] == 'addr:street':
-                
+             
                     t_dic['value'] = update_name(tag.attrib['v'])
-                    print 'addr', t_dic
                 else:
                     t_dic['value'] = tag.attrib['v']
-                
                 
             else:
                 t_dic['type'] = 'regular'
@@ -106,17 +104,13 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
             if PROBLEMCHARS.match(tag.attrib["k"]):
                 continue
             elif LOWER_COLON.match(tag.attrib['k']):
-               
                 t_dic['type'] = tag.attrib['k'].split(':')[0]
                 t_dic['key'] = tag.attrib["k"].split(':',1)[1]
-                
                 if tag.attrib['k'] == 'addr:street':
                         t_dic['value'] = update_name(tag.attrib['v'])
-                        print 'addr', t_dic
                 else:
                     t_dic['value'] = tag.attrib['v']
-                
-                
+
             else:
                 t_dic['type'] = 'regular'
                 t_dic['key'] = tag.attrib['k']

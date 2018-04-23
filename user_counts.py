@@ -39,14 +39,7 @@ def process_map(filename):
     return users
 
 
-def test():
-
-    users = process_map('dallas.osm')
-    #pprint.pprint(users)
-    print(len(users))
-
-
 
 
 if __name__ == "__main__":
-    test()
+    process_map('dallas.osm')
