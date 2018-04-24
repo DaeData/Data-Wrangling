@@ -9,9 +9,9 @@ import re
 
 street_type_re = re.compile(r'\b\S+\.?$', re.IGNORECASE)
 
+#https://en.wikipedia.org/wiki/Texas_State_Highway_Spur_408
 #https://en.wikipedia.org/wiki/Street_suffix
 #https://pe.usps.com/text/pub28/28apc_002.htm
-#https://en.wikipedia.org/wiki/Texas_State_Highway_Spur_408
 expected = ['Alley', 'Annex', 'Arcade', 'Avenue', 'Bayou', 'Beach', 'Bend', 'Bluff', 'Bottom', 'Boulevard', 'Branch', 'Bridge',\
             'Brook', 'Burg', 'Bypass', 'Camp', 'Canyon', 'Cape', 'Causeway', 'Center', 'Circle', 'Cliff', 'Club', 'Common',\
             'Corner', 'Course', 'Court', 'Cove', 'Creek', 'Crescent', 'Crest', 'Crossing', 'Crossroad', 'Curve', 'Dale', \
@@ -24,8 +24,8 @@ expected = ['Alley', 'Annex', 'Arcade', 'Avenue', 'Bayou', 'Beach', 'Bend', 'Blu
             'Radial', 'Ramp', 'Ranch', 'Rapid', 'Rest', 'Ridge', 'River', 'Road', 'Route', 'Row', 'Rue', 'Run', 'Shoal', \
             'Shore', 'Skyway', 'Spring', 'Spur', 'Square', 'Station', 'Stravenue', 'Stream', 'Street', 'Summit', 'Terrace', \
             'Throughway', 'Trace', 'Track', 'Trafficway', 'Trail', 'Trailer', 'Tunnel', 'Turnpike', 'Underpass', 'Union', 'Valley', \
-            'Viaduct', 'View', 'Village', 'Ville', 'Vista', 'Walk', 'Wall', 'Way', 'Well', 'Wells', 'Via', 'Spur 408'] 
-
+            'Viaduct', 'View', 'Village', 'Ville', 'Vista', 'Walk', 'Wall', 'Way', 'Well', 'Wells', 'Via', 'Spur 408', 'Central', \
+            'Downs'] 
 
 mapping = { "St": "Street",
             "St.": "Street",
@@ -57,8 +57,29 @@ mapping = { "St": "Street",
             "Canton Street, Suite 202": "Canton Street",
             "Las Colinas Blvd E": "Las Colinas Boulevard East",
             "Reunion Blvd E": "Reunion Boulevard East",
-            "North Pearl Street, Suite 1150": "North Pearl Street"
-
+            "North Pearl Street, Suite 1150": "North Pearl Street",
+            "N Central Expressway Ste 635": "N Central Expressway",
+            "South Parkway Boulevard South": "South Parkway Boulevard",
+            "E State Highway 356": "East State Highway 356",
+            "56th": "56th Street",
+            "Nile": "Nile Drive",
+            "Haskell": "Haskell Drive",
+            "Birchbrook": "Birchbrook Drive",
+            "North San Saba": "North San Saba Drive",
+            "South San Saba": "South San Saba Drive",
+            "Cardiff": "Cardiff Street",
+            "Barcelona": "Barcelona Drive",
+            "Jo Pierce": "Jo Pierce Street",
+            "Glenwood": "Glenwood Avenue",
+            "Gillette": "Gillette Street",
+            "Pleasant Mound": "South Buckner Boulevard",
+            "Sheree": "Sheree Lane",
+            "Wren": "Wren Way",
+            "Wandt": "Wandt Drive",
+            "Inwood": "Inwood Road",
+            "Vista Gate": "Vista Gate Drive",
+            "E Kearney": "East Kearney Street"
+          
             }
 
 def update_name(name):

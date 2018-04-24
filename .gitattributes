@@ -1,2 +1,5 @@
-.csv filter=lfs diff=lfs merge=lfs -text
-.osm filter=lfs diff=lfs merge=lfs -text
+*.csv filter=lfs diff=lfs merge=lfs -text
+*.osm filter=lfs diff=lfs merge=lfs -text
+ways.csv filter=lfs diff=lfs merge=lfs -text
+ways_nodes.csv filter=lfs diff=lfs merge=lfs -text
+ways_tags.csv filter=lfs diff=lfs merge=lfs -text
