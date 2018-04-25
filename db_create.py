@@ -47,7 +47,7 @@ con.commit()
 cur.execute("CREATE TABLE nodes_tags (id INTEGER, key TEXT, value TEXT, type TEXT, FOREIGN KEY (id) REFERENCES nodes(id));") # use your column names here
 con.commit()
 
-with open('nodes_tags.csv','rb') as fin: 
+with open('nodes_tags.csv','rb') as f: 
 
     data = csv.DictReader(f) 
     to_db = [(i['id'].decode("utf-8"),i['key'].decode("utf-8"),i['value'].decode("utf-8"),i['type'].decode("utf-8")) for i in data]
@@ -64,7 +64,7 @@ cur.execute("CREATE TABLE ways_tags (id INTEGER NOT NULL,key TEXT NOT NULL,value
 con.commit()
 
 with open('ways_tags.csv','rb') as f: 
-    data = csv.DictReader(fin)
+    data = csv.DictReader(f)
     to_db = [(i['id'].decode("utf-8"),i['key'].decode("utf-8"),i['value'].decode("utf-8"),i['type'].decode("utf-8")) for i in data]
     
 
@@ -75,11 +75,11 @@ con.commit()
 cur.execute('''DROP TABLE IF EXISTS ways_nodes; ''')
 con.commit()
 
-cur.execute("CREATE TABLE ways_nodes (id INTEGER NOT NULL,node_id INTEGER NOT NULL, position INTEGER NOT NULL,FOREIGN KEY (id) REFERENCES ways(id),FOREIGN KEY (node_id) REFERENCES nodes(id));") # use your column names here
+cur.execute("CREATE TABLE ways_nodes (id INTEGER NOT NULL,node_id INTEGER NOT NULL, position INTEGER NOT NULL,FOREIGN KEY (id) REFERENCES ways(id),FOREIGN KEY (node_id) REFERENCES nodes(id));") 
 con.commit()
 
 with open('ways_nodes.csv','rb') as f: 
-    data = csv.DictReader(fin)
+    data = csv.DictReader(f)
     to_db = [(i['id'].decode("utf-8"),i['node_id'].decode("utf-8"),i['position'].decode("utf-8")) for i in data]
     
 
