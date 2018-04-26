@@ -6,7 +6,7 @@
 The data set used for this project is located at https://www.openstreetmap.org/export#map=12/32.7831/-96.8067 
 
 I picked this location because it is of interest to me.  I recently relocated to the Dallas metro area and getting around and discovering things in a new city can be challenging.  We will explore the accuracy of the information in this area and correct crucial data.
-
+**Note** to see the code used in this project please refer to: [DAND Data Wrangling Code](https://github.com/DaeData/Data-Wrangling/blob/master/DAND%20Data%20Wrangling%20Code%20-%20Copy.ipynb) or the .py files in the repo.
 ## Overview of the Data
 The dataset chosen is a rather large one:<br>
 Dallas.osm - 692MB<br>
