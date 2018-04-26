@@ -13,6 +13,7 @@ import schema
 
 from update_street_name import update_name
 
+
 OSM_PATH = "dallas.osm"
 
 NODES_PATH = "nodes.csv"
@@ -69,6 +70,7 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
                 if tag.attrib['k'] == 'addr:street':
              
                     t_dic['value'] = update_name(tag.attrib['v'])
+ 
                 else:
                     t_dic['value'] = tag.attrib['v']
                 
@@ -108,6 +110,7 @@ def shape_element(element, node_attr_fields=NODE_FIELDS, way_attr_fields=WAY_FIE
                 t_dic['key'] = tag.attrib["k"].split(':',1)[1]
                 if tag.attrib['k'] == 'addr:street':
                         t_dic['value'] = update_name(tag.attrib['v'])
+
                 else:
                     t_dic['value'] = tag.attrib['v']
 
