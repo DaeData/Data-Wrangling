@@ -8,14 +8,15 @@ The data set used for this project is located at https://www.openstreetmap.org/e
 I picked this location because it is of interest to me.  I recently relocated to the Dallas metro area and getting around and discovering things in a new city can be challenging.  We will explore the accuracy of the information in this area and correct crucial data.
 
 ## Overview of the Data
-The dataset chosen is a rather large one:
-Dallas.osm - 692MB
-Dallas_metro.db - 392MB
-Nodes.csv - 291MB
-Nodes_tags.csv - 1.26MB
-Ways.csv - 23.0MB
-Ways_Nodes.csv - 85.5MB
-Ways_tags.csv - 37.2MB
+The dataset chosen is a rather large one:<br>
+Dallas.osm - 692MB<br>
+Dallas_metro.db - 392MB<br>
+Nodes.csv - 291MB<br>
+Nodes_tags.csv - 1.26MB<br>
+Ways.csv - 23.0MB<br>
+Ways_Nodes.csv - 85.5MB<br>
+Ways_tags.csv - 37.2MB<br>
+
 When taking a look at the tags from Dallas.osm we can see there are over 3 million node and ways datapoints.
 
 ### Mapparser.py
@@ -28,17 +29,17 @@ When taking a look at the tags from Dallas.osm we can see there are over 3 milli
  'osm': 1,
  'relation': 1602,
  'tag': 1125912,
- 'way': 339226}
-So we started by looking at the elements and categorizing them according to data patterns.  It is rather surpising to see that there are no problem characters associate with the data.
+ 'way': 339226}<br>
+So we started by looking at the elements and categorizing them according to data patterns.  It is rather surpising to see that there are no problem characters associate with the data.<br>
 ### Tags.py
-{'lower': 483367, 'lower_colon': 633552, 'other': 8993, 'problemchars': 0}
+{'lower': 483367, 'lower_colon': 633552, 'other': 8993, 'problemchars': 0}<br>
 So next we took a look at unique user contributions.  We can see that 841 unique users contributed to the dataset.
 
 ### Users.py
 841
-With a little bit better view of the data we start but taking a look at what can be one of the most important areas of the data, streets.  It won't matter what cool things we find to do in the city if we can't figure out how to get there.  As we can see there are numerous problems with the data.
-### Audit.py
-{'Verdes': set(['Palos Verdes']), 'Rd': set(['E Grauwyler Rd', 'S. Hampton Rd', 'Interstate 30 Frontage Rd', 'I-20 Frontage Rd', 'Midway Rd', 'E Overton Rd', 'Stone Canyon Rd', 'N Support Rd', 'US-175 Frontage Rd', 'Hall Rd', 'Cedar Springs Rd', 'Garland Rd']), 'Elias': set(['Via Jesse Elias']), 'Gate': set(['Vista Gate']), 'Inwood': set(['Inwood']), 'Deseo': set(['Deseo']), '20': set(['East Interstate Highway 20', 'West I 20', 'I 20', 'West Interstate 20', 'Interstate Highway 20']), 'Paraiso': set(['Paseo Paraiso']), 'Verde': set(['Verde']), 'Jacob': set(['Via James Jacob']), 'Redondo': set(['Redondo']), '408': set(['Spur 408']), 'Cima': set(['La Cima']), 'Clemente': set(['San Clemente']), 'D': set(['Avenue D']), 'H': set(['Avenue H']), 'L': set(['Avenue L']), 'Nile': set(['Nile']), 'Pkwy': set(['International Pkwy']), '12': set(['South Loop 12', 'North Loop 12', 'Loop 12']), 'Wandt': set(['Wandt']), 'Kearney': set(['E Kearney']), 'Wren': set(['Wren']), 'Rio': set(['Camino Rio']), 'Halsey': set(['Halsey']), 'Chase': set(['Slick Rock Chase']), '56th': set(['56th']), 'Fontana': set(['La Fontana']), 'West': set(['Plymouth Drive West', 'Lago Vista West', 'East Technology Boulevard;Technology Boulevard West', 'Story Road West']), 'Expy': set(['N Central Expy']), 'Lago': set(['Camino Lago']), 'Dr.': set(['Rugged Dr.']), '80': set(['West US Highway 80']), 'Rd.': set(['Hillcrest Rd.']), '360': set(['North State Highway 360', 'State Highway 360']), 'C': set(['Avenue C']), 'Central': set(['Empire Central']), 'G': set(['Avenue G']), '300': set(['Forest Central Drive, Suite 300']), 'K': set(['East Avenue K']), 'Kjo': set(['7815 McCallum Blvd 14203 Dallas TX 75252 Kjo']), '306': set(['W Illinois Ave #306']), 'Antonio': set(['Via San Antonio']), '102': set(['North Market Street #102']), 'Millmar': set(['Millmar']), '30': set(['West Interstate 30', 'Interstate 30']), 'Catherine': set(['Via Saint Catherine']), 'Lynnacre': set(['Lynnacre']), 'Avenida': set(['Via Avenida']), 'road': set(['Innwood road']), 'St.': set(['Dyer St.']), '175': set(['North Highway 175']), 'Thrush': set(['Wood Thrush']), 'Eduardo': set(['Via San Eduardo']), 'Downs': set(['Churchill Downs']), 'Tranquilo': set(['Tranquilo']), 'Vernon': set(['Mt Vernon']), 'Sheree': set(['Sheree']), 'Willowood': set(['Willowood']), 'B': set(['Avenue B', 'West Main Street #B']), '635': set(['N Central Expressway Ste 635', 'West Interstate 635']), 'F': set(['Avenue F']), 'J': set(['Avenue J']), 'St': set(['Farrington St', 'Knox St', 'Live Oak St']), '75062': set(['75062']), 'Mound': set(['Pleasant Mound']), '161': set(['State Highway 161', 'TX 161', 'South Highway 161']), 'Sonoma': set(['Sonoma']), 'Terraza': set(['Terraza']), '2010': set(['North Saint Paul Street, Suite 2010']), 'Ave': set(['Lemmon Ave', 'Henderson Ave', 'Oak Lawn Ave', 'Greenville Ave']), 'Gillette': set(['Gillette']), 'Ln': set(['Valley View Ln', 'Livingston Ln']), 'Jolla': set(['La Jolla']), 'Camilla': set(['Camilla']), 'blvd': set(['trinity blvd']), 'East': set(['East Technology Boulevard;Technology Boulevard East', 'Reunion Boulevard East', 'Road to Six Flags East', 'Griffin Street East', 'Technology Boulevard East', 'Us Highway 80 East']), 'LN': set(['CARUTH HAVEN LN']), 'Estrella': set(['Via Estrella']), 'Stonecourt': set(['Stonecourt']), 'Glenwood': set(['Glenwood']), 'Tierra': set(['Nueva Tierra']), 'Dr': set(['W Ledbetter Dr', 'Lone Star Dr', 'W Pioneer Dr']), 'A': set(['Avenue A']), '200': set(['Webb Chapel Rd 200']), 'Pierce': set(['Jo Pierce']), '202': set(['Canton Street, Suite 202']), 'E': set(['Las Colinas Blvd E', 'Avenue E', 'Reunion Blvd E']), 'I-30': set(['West I-30', 'East I-30']), 'I': set(['Avenue I']), 'Av': set(['Lemmon Av']), 'Fernando': set(['San Fernando']), 'Barcelona': set(['Barcelona']), '1150': set(['North Pearl Street, Suite 1150']), 'Q': set(['Avenue Q']), 'Cardiff': set(['Cardiff']), 'Saba': set(['North San Saba', 'South San Saba']), 'South': set(['South Parkway Boulevard South']), 'Birchbrook': set(['Birchbrook']), '356': set(['E State Highway 356']), 'Haskell': set(['Haskell']), 'Hunterwood': set(['Hunterwood']), 'Blvd': set(['North Macarthur Blvd'])})
+With a little bit better view of the data we start but taking a look at what can be one of the most important areas of the data, streets.  It won't matter what cool things we find to do in the city if we can't figure out how to get there.  As we can see there are numerous problems with the data.<br>
+### Audit.py<br>
+{'Verdes': set(['Palos Verdes']), 'Rd': set(['E Grauwyler Rd', 'S. Hampton Rd', 'Interstate 30 Frontage Rd', 'I-20 Frontage Rd', 'Midway Rd', 'E Overton Rd', 'Stone Canyon Rd', 'N Support Rd', 'US-175 Frontage Rd', 'Hall Rd', 'Cedar Springs Rd', 'Garland Rd']), 'Elias': set(['Via Jesse Elias']), 'Gate': set(['Vista Gate']), 'Inwood': set(['Inwood']), 'Deseo': set(['Deseo']), '20': set(['East Interstate Highway 20', 'West I 20', 'I 20', 'West Interstate 20', 'Interstate Highway 20']), 'Paraiso': set(['Paseo Paraiso']), 'Verde': set(['Verde']), 'Jacob': set(['Via James Jacob']), 'Redondo': set(['Redondo']), '408': set(['Spur 408']), 'Cima': set(['La Cima']), 'Clemente': set(['San Clemente']), 'D': set(['Avenue D']), 'H': set(['Avenue H']), 'L': set(['Avenue L']), 'Nile': set(['Nile']), 'Pkwy': set(['International Pkwy']), '12': set(['South Loop 12', 'North Loop 12', 'Loop 12']), 'Wandt': set(['Wandt']), 'Kearney': set(['E Kearney']), 'Wren': set(['Wren']), 'Rio': set(['Camino Rio']), 'Halsey': set(['Halsey']), 'Chase': set(['Slick Rock Chase']), '56th': set(['56th']), 'Fontana': set(['La Fontana']), 'West': set(['Plymouth Drive West', 'Lago Vista West', 'East Technology Boulevard;Technology Boulevard West', 'Story Road West']), 'Expy': set(['N Central Expy']), 'Lago': set(['Camino Lago']), 'Dr.': set(['Rugged Dr.']), '80': set(['West US Highway 80']), 'Rd.': set(['Hillcrest Rd.']), '360': set(['North State Highway 360', 'State Highway 360']), 'C': set(['Avenue C']), 'Central': set(['Empire Central']), 'G': set(['Avenue G']), '300': set(['Forest Central Drive, Suite 300']), 'K': set(['East Avenue K']), 'Kjo': set(['7815 McCallum Blvd 14203 Dallas TX 75252 Kjo']), '306': set(['W Illinois Ave #306']), 'Antonio': set(['Via San Antonio']), '102': set(['North Market Street #102']), 'Millmar': set(['Millmar']), '30': set(['West Interstate 30', 'Interstate 30']), 'Catherine': set(['Via Saint Catherine']), 'Lynnacre': set(['Lynnacre']), 'Avenida': set(['Via Avenida']), 'road': set(['Innwood road']), 'St.': set(['Dyer St.']), '175': set(['North Highway 175']), 'Thrush': set(['Wood Thrush']), 'Eduardo': set(['Via San Eduardo']), 'Downs': set(['Churchill Downs']), 'Tranquilo': set(['Tranquilo']), 'Vernon': set(['Mt Vernon']), 'Sheree': set(['Sheree']), 'Willowood': set(['Willowood']), 'B': set(['Avenue B', 'West Main Street #B']), '635': set(['N Central Expressway Ste 635', 'West Interstate 635']), 'F': set(['Avenue F']), 'J': set(['Avenue J']), 'St': set(['Farrington St', 'Knox St', 'Live Oak St']), '75062': set(['75062']), 'Mound': set(['Pleasant Mound']), '161': set(['State Highway 161', 'TX 161', 'South Highway 161']), 'Sonoma': set(['Sonoma']), 'Terraza': set(['Terraza']), '2010': set(['North Saint Paul Street, Suite 2010']), 'Ave': set(['Lemmon Ave', 'Henderson Ave', 'Oak Lawn Ave', 'Greenville Ave']), 'Gillette': set(['Gillette']), 'Ln': set(['Valley View Ln', 'Livingston Ln']), 'Jolla': set(['La Jolla']), 'Camilla': set(['Camilla']), 'blvd': set(['trinity blvd']), 'East': set(['East Technology Boulevard;Technology Boulevard East', 'Reunion Boulevard East', 'Road to Six Flags East', 'Griffin Street East', 'Technology Boulevard East', 'Us Highway 80 East']), 'LN': set(['CARUTH HAVEN LN']), 'Estrella': set(['Via Estrella']), 'Stonecourt': set(['Stonecourt']), 'Glenwood': set(['Glenwood']), 'Tierra': set(['Nueva Tierra']), 'Dr': set(['W Ledbetter Dr', 'Lone Star Dr', 'W Pioneer Dr']), 'A': set(['Avenue A']), '200': set(['Webb Chapel Rd 200']), 'Pierce': set(['Jo Pierce']), '202': set(['Canton Street, Suite 202']), 'E': set(['Las Colinas Blvd E', 'Avenue E', 'Reunion Blvd E']), 'I-30': set(['West I-30', 'East I-30']), 'I': set(['Avenue I']), 'Av': set(['Lemmon Av']), 'Fernando': set(['San Fernando']), 'Barcelona': set(['Barcelona']), '1150': set(['North Pearl Street, Suite 1150']), 'Q': set(['Avenue Q']), 'Cardiff': set(['Cardiff']), 'Saba': set(['North San Saba', 'South San Saba']), 'South': set(['South Parkway Boulevard South']), 'Birchbrook': set(['Birchbrook']), '356': set(['E State Highway 356']), 'Haskell': set(['Haskell']), 'Hunterwood': set(['Hunterwood']), 'Blvd': set(['North Macarthur Blvd'])})<br>
 Because this is a very large set of possible problems we need to approach this carefully.  We discovered that Dallas metro streets can be particularly unique.  So we start with the clearer entries.  
 
 The entries for Avenue[A-Q] are correct and will not be altered. Those ending with abbreviations like Rd. or Blvd. are also straight-forward to clean so we will add those to the mapping.
@@ -63,10 +64,10 @@ Of the remaining 20 entries I was unable to determine the correct suffix associa
 
 These entries are unique in that they are within a short distance of each other and are either correct in one city or have a suffix in the other city.
 
-### update_street_name.py
+### update_street_name.py<br>
 All corrections were added to mappings.  This decision was made as it was more straight-forward to correct the data properly than by approaching it with additional scripting.
 
-### data_wrangling_schema.sql
+### data_wrangling_schema.sql<br>
 Creating the database with data_wrangling_schema.sql resulted in an extra entry in each table. Also an error of datatype mismatch returned for the nodes and ways imports. I was only able to create the tables when 'PRIMARY KEY' was removed.
 CREATE TABLE nodes (
     id INTEGER NOT NULL,
